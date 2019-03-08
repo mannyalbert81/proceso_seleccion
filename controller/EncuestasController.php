@@ -1202,7 +1202,252 @@ class EncuestasController extends ControladorBase{
 	
 	
 	
+	public function indexEncuesta(){
+	    
+	    session_start();
+	    
+	    /*start test*/
+	    $_SESSION['controladores'] = array(); 
+	    /*end test*/
+	    
+	    $columnas ="";
+	    
+	    
+	    $this->View('ConsultaEncuestas',array());
+	    
+	}
 	
+	public function buscaAspirante(){
+	    
+	    $aspirante = new AspiranteModel();
+	   
+	    $columnas = "aspirante.id_aspirante, 
+                      aspirante.cedula_aspirante, 
+                      aspirante.nombre_aspirante, 
+                      aspirante.puesto_postula,
+                      aspirante.creado";
+	    
+	    $tablas   = "public.aspirante";
+	    
+	    $where    = "1=1";
+	    
+	    $id       = "aspirante.id_aspirante";
+	    
+	    
+	    $action = (isset($_REQUEST['action'])&& $_REQUEST['action'] !=NULL)?$_REQUEST['action']:'';
+	    $search =  (isset($_REQUEST['search'])&& $_REQUEST['search'] !=NULL)?$_REQUEST['search']:'';
+	   
+	    
+	    
+	    if($action == 'ajax')
+	    {
+	        
+	        if(!empty($search)){
+	            
+	            
+	            $where1=" AND (aspirante.cedula_aspirante LIKE '".$search."%' OR aspirante.nombre_aspirante LIKE '".$search."%')";
+	            
+	            $where_to=$where.$where1;
+	        }else{
+	            
+	            
+	            $where_to=$where;
+	            
+	        }
+	        
+	        $html="";
+	        $resultSet=$aspirante->getCantidad("*", $tablas, $where_to);
+	        $cantidadResult=(int)$resultSet[0]->total;
+	        
+	        $page = (isset($_REQUEST['page']) && !empty($_REQUEST['page']))?$_REQUEST['page']:1;
+	        
+	        $per_page = 50; //la cantidad de registros que desea mostrar
+	        $adjacents  = 9; //brecha entre páginas después de varios adyacentes
+	        $offset = ($page - 1) * $per_page;
+	        
+	        $limit = " LIMIT   '$per_page' OFFSET '$offset'";
+	        
+	        $resultSet=$aspirante->getCondicionesPagDesc($columnas, $tablas, $where_to, $id, $limit);
+	        $count_query   = $cantidadResult;
+	        $total_pages = ceil($cantidadResult/$per_page);
+	        
+	        
+	        if($cantidadResult>0)
+	        {
+	            
+	            $html.='<div class="pull-left" style="margin-left:11px;">';
+	            $html.='<span class="form-control"><strong>Registros: </strong>'.$cantidadResult.'</span>';
+	            $html.='<input type="hidden" value="'.$cantidadResult.'" id="total_query" name="total_query"/>' ;
+	            $html.='</div>';
+	            $html.='<div class="col-lg-12 col-md-12 col-xs-12">';
+	            $html.='<section style="height:425px; overflow-y:scroll;">';
+	            $html.= "<table id='tabla_encuestas_realizadas' class='tablesorter table table-striped table-bordered dt-responsive nowrap'>";
+	            $html.= "<thead>";
+	            $html.= "<tr>";
+	            $html.='<th style="text-align: left;  font-size: 12px;"></th>';
+	            $html.='<th style="text-align: left;  font-size: 12px;">Cedula</th>';
+	            $html.='<th style="text-align: left;  font-size: 12px;">Nombre</th>';
+	            $html.='<th style="text-align: left;  font-size: 12px;"> </th>';
+	            $html.='<th style="text-align: left;  font-size: 12px;">Puesto Postula</th>';
+	            $html.='<th style="text-align: left;  font-size: 12px;">Fecha Encuesta</th>';
+	            $html.='<th style="text-align: left;  font-size: 12px;">Ver Encuesta</th>';
+	            $html.='</tr>';
+	            $html.='</thead>';
+	            $html.='<tbody>';
+	            
+	            $i=0;
+	            
+	            foreach ($resultSet as $res)
+	            {
+	                
+	                $i++;
+	                $html.='<tr>';
+	                $html.='<td style="font-size: 11px;">'.$i.'</td>';
+	                $html.='<td style="font-size: 11px;">'.$res->cedula_aspirante.'</td>';
+	                $html.='<td style="font-size: 11px;">'.$res->nombre_aspirante.'</td>';
+	                $html.='<td style="font-size: 11px;">'.' '.'</td>';
+	                $html.='<td style="font-size: 11px;">'.$res->puesto_postula.'</td>';
+	                $html.='<td style="font-size: 11px;">'.date("d/m/Y", strtotime($res->creado)).'</td>';
+	                $html.='<td style="font-size: 11px;"><a href="index.php?controller=Encuestas&action=imprime_encuesta&id_aspirante='.$res->id_aspirante.'" target="_blank" class="btn btn-warning" style="font-size:85%;"><i class="glyphicon glyphicon-eye-open"></i></a></td>';
+	                $html.='</tr>';
+	            }
+	            
+	            
+	            $html.='</tbody>';
+	            $html.='</table>';
+	            $html.='</section></div>';
+	            $html.='<div class="table-pagination pull-right">';
+	            $html.=''. $this->paginate_load_encuestas_realizadas("index.php", $page, $total_pages, $adjacents).'';
+	            $html.='</div>';
+	            
+	            
+	        }else{
+	            $html.='<div class="col-lg-12 col-md-12 col-xs-12">';
+	            $html.='<div class="alert alert-warning alert-dismissable" style="margin-top:40px;">';
+	            $html.='<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>';
+	            $html.='<h4>Aviso!!!</h4> <b>Actualmente no hay encuestas registradas...</b>';
+	            $html.='</div>';
+	            $html.='</div>';
+	        }
+	        
+	        
+	        
+	        
+	        echo $html;
+	        die();
+	        
+	    }
+	    
+	    
+	}
+	
+	public function imprime_encuesta()
+	{
+	    
+	    session_start();
+	    
+	    $aspirante = new AspiranteModel();
+	    
+	    $columna='
+    	    aspirante.cedula_aspirante,
+    	    aspirante.nombre_aspirante,
+    	    aspirante.puesto_postula,
+    	    respuestas.respuesta,
+    	    respuestas.creado,
+    	    respuestas.id_respuestas,
+    	    respuestas.id_preguntas,
+    	    aspirante.id_aspirante,
+    	    preguntas.nombre_preguntas,
+    	    preguntas.id_preguntas';
+	    
+	    $tablas='
+    	    public.aspirante,
+    	    public.preguntas,
+    	    public.respuestas';
+	    
+	    $where='
+    	    aspirante.id_aspirante = respuestas.id_aspirante AND
+    	    preguntas.id_preguntas = respuestas.id_preguntas';
+	    
+	    $orden = 'preguntas.id_preguntas';
+	   
+	    $html="";
+	    
+	   
+	    $fechaactual = getdate();
+	    $dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
+	    $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+	    $fechaactual=$dias[date('w')]." ".date('d')." de ".$meses[date('n')-1]. " del ".date('Y') ;
+	    
+	    $directorio = $_SERVER ['DOCUMENT_ROOT'] . '/proceso_seleccion';
+	    $dom=$directorio.'/view/dompdf/dompdf_config.inc.php';
+	    $domLogo=$directorio.'/view/images/lcaprem.png';
+	    $logo = '<img src="'.$domLogo.'" alt="Responsive image" width="200" height="50">';
+	    
+	    
+        if(isset($_GET["id_aspirante"])){
+            
+            $id_aspirante=$_GET["id_aspirante"];
+            
+            $where.=' AND aspirante.id_aspirante='.$id_aspirante;
+            
+            $resultEncuestas=$aspirante->getCondiciones($columna, $tablas, $where, $orden);
+                        
+	            
+            if(!empty($resultEncuestas)){
+	                
+                $_nombre_aspirante = $resultEncuestas[0]->nombre_aspirante;
+                $_cedula_aspirante = $resultEncuestas[0]->cedula_aspirante;
+                $_fecha_encuesta = $resultEncuestas[0]->creado;
+                $_puesto_postula = $resultEncuestas[0]->puesto_postula;
+                $_id_aspirante = $resultEncuestas[0]->id_aspirante;
+                
+         
+                $html.='<p style="text-align: right;">'.$logo.'<hr style="height: 2px; background-color: black;"></p>';
+                $html.='<p style="text-align: right; font-size: 13px;"><b>Impreso:</b> '.$fechaactual.'</p>';
+                $html.='<p style="text-align: center; font-size: 16px;"><b>PROCESO DE SELECCIÓN</b></p>';
+                
+                $html.= '<p style="margin-top:15px; text-align: justify; font-size: 13px;"><b>NOMBRES:</b> '.$_nombre_aspirante.'  <b style="margin-left: 20%; font-size: 13px;">IDENTIFICACIÓN:</b> '.$_cedula_aspirante.'</p>';
+                $html.= '<p style="margin-top:15px; text-align: justify; font-size: 13px;"><b>ENCUESTA REALIZADA EL:</b> '.$_fecha_encuesta.'</p>';
+                $html.= '<p style="margin-top:15px; text-align: justify; font-size: 13px;"><b>PUESTO AL QUE POSTULA:</b> '.$_puesto_postula.'</p>';
+                
+                	                        
+                $pregunta="";
+                $respuesta="";
+                $comentario="";
+	                        
+                foreach ($resultEncuestas as $res){
+	                            
+                    $numero = $res->id_preguntas;
+                    $pregunta = $res->nombre_preguntas;
+                    $respuesta = $res->respuesta;
+                    
+                    $html.= "<b>$pregunta</b>";
+                    
+                    $html.= "<table style='width: 100%; margin-top:10px;'>";
+                    $html.= '<tr>';
+                    $html.='<td  colspan="3" style="text-align: justify;  font-size: 15px;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '.$respuesta.'</td><br> <br>';
+                    $html.='</tr>';
+                    $html.='</table>';
+                             
+	             }
+	                        
+	           }
+	                    
+	                    
+            $this->report("Encuestas",array( "resultSet"=>$html));
+            die();
+	            
+	        }else{
+	            
+	            $this->redirect("Encuestas","index");
+	            
+	        }
+	        
+	        
+	   
+	    
+	}
 	
 	
 	
