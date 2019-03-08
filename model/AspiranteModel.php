@@ -18,7 +18,6 @@ class AspiranteModel extends ModeloBase{
 		return $this->funcion;
 	}
 	
-	//maycol
 	public function setFuncion($funcion) {
 		$this->funcion = $funcion;
 	}

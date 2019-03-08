@@ -27,8 +27,10 @@ class EncuestasController extends ControladorBase{
 			$pregunta_4 = "";
 			$pregunta_5 = "";
 			$pregunta_6 = "";
+			$pregunta_7 = "";
 			$pregunta_8 = "";
-			$pregunta_8 = "";
+			$pregunta_9 = "";
+			$pregunta_10 = "";
 			
 			$id_pregunta_1 = "";
 			$id_pregunta_2 = "";
@@ -36,16 +38,18 @@ class EncuestasController extends ControladorBase{
 			$id_pregunta_4 = "";
 			$id_pregunta_5 = "";
 			$id_pregunta_6 = "";
+			$id_pregunta_7 = "";
 			$id_pregunta_8 = "";
-			$id_pregunta_8 = "";
+			$id_pregunta_9 = "";
+			$id_pregunta_10 = "";
 			
 			
 				
 					
-				$columnas="id_preguntas_encuestas_participes, nombre_preguntas_encuestas_participes";
-				$tablas="preguntas_encuestas_participes";
+				$columnas="id_preguntas, nombre_preguntas";
+				$tablas="preguntas";
 				$where="1=1";
-				$id="id_preguntas_encuestas_participes";
+				$id="id_preguntas";
 				$resultPreguntas=$preguntas->getCondiciones($columnas, $tablas, $where, $id);
 				
 				
@@ -57,256 +61,74 @@ class EncuestasController extends ControladorBase{
 						$contador++;
 						
 						if($contador==1){
-							$id_pregunta_1=$res->id_preguntas_encuestas_participes;
-							$pregunta_1=$res->nombre_preguntas_encuestas_participes;
+						    $id_pregunta_1=$res->id_preguntas;
+						    $pregunta_1=$res->nombre_preguntas;
 							
 						}else if($contador==2){
-							$id_pregunta_2=$res->id_preguntas_encuestas_participes;
-							$pregunta_2=$res->nombre_preguntas_encuestas_participes;
+						    $id_pregunta_2=$res->id_preguntas;
+						    $pregunta_2=$res->nombre_preguntas;
 							
 						}
 						else if($contador==3){
-							$id_pregunta_3=$res->id_preguntas_encuestas_participes;
-							$pregunta_3=$res->nombre_preguntas_encuestas_participes;
+						    $id_pregunta_3=$res->id_preguntas;
+						    $pregunta_3=$res->nombre_preguntas;
 								
 						}else if($contador==4){
-							$id_pregunta_4=$res->id_preguntas_encuestas_participes;
-							$pregunta_4=$res->nombre_preguntas_encuestas_participes;
+						    $id_pregunta_4=$res->id_preguntas;
+						    $pregunta_4=$res->nombre_preguntas;
 							
 						}else if($contador==5){
-							$id_pregunta_5=$res->id_preguntas_encuestas_participes;
-							$pregunta_5=$res->nombre_preguntas_encuestas_participes;
+						    $id_pregunta_5=$res->id_preguntas;
+						    $pregunta_5=$res->nombre_preguntas;
 							
 						}else if($contador==6){
-							$id_pregunta_6=$res->id_preguntas_encuestas_participes;
-							$pregunta_6=$res->nombre_preguntas_encuestas_participes;
+						    $id_pregunta_6=$res->id_preguntas;
+						    $pregunta_6=$res->nombre_preguntas;
 							
 						}else if($contador==7){
-							$id_pregunta_7=$res->id_preguntas_encuestas_participes;
-							$pregunta_7=$res->nombre_preguntas_encuestas_participes;
+						    $id_pregunta_7=$res->id_preguntas;
+						    $pregunta_7=$res->nombre_preguntas;
 							
 						}else if($contador==8){
-							$id_pregunta_8=$res->id_preguntas_encuestas_participes;
-							$pregunta_8=$res->nombre_preguntas_encuestas_participes;
+						    $id_pregunta_8=$res->id_preguntas;
+						    $pregunta_8=$res->nombre_preguntas;
 							
+						}
+						else if($contador==9){
+						    $id_pregunta_9=$res->id_preguntas;
+						    $pregunta_9=$res->nombre_preguntas;
+						    
+						}
+						else if($contador==10){
+						    $id_pregunta_10=$res->id_preguntas;
+						    $pregunta_10=$res->nombre_preguntas;
+						    
 						}
 						
 					}
 					
 				}
 				
-				
-				
-				
-				
-				
 					
+				
 				$this->view("Encuestas",array(
 						"pregunta_1"=>$pregunta_1, "pregunta_2"=>$pregunta_2, "pregunta_3"=>$pregunta_3,
 						"pregunta_4"=>$pregunta_4, "pregunta_5"=>$pregunta_5, "pregunta_6"=>$pregunta_6,
 						"pregunta_7"=>$pregunta_7, "pregunta_8"=>$pregunta_8,
+				        "pregunta_9"=>$pregunta_9, "pregunta_10"=>$pregunta_10,
 						"id_pregunta_1"=>$id_pregunta_1, "id_pregunta_2"=>$id_pregunta_2, "id_pregunta_3"=>$id_pregunta_3,
 						"id_pregunta_4"=>$id_pregunta_4, "id_pregunta_5"=>$id_pregunta_5, "id_pregunta_6"=>$id_pregunta_6,
-						"id_pregunta_7"=>$id_pregunta_7, "id_pregunta_8"=>$id_pregunta_8
+						"id_pregunta_7"=>$id_pregunta_7, "id_pregunta_8"=>$id_pregunta_8,
+				        "id_pregunta_9"=>$id_pregunta_9, "id_pregunta_10"=>$id_pregunta_10
 						
 	
 				));
 	
 			
-				
-	
-		
 	
 	}
 	
 	
-	
-	
-	
-	
-	
-	public function index2(){
-		
-		session_start();
-		if (isset(  $_SESSION['nombre_usuarios']) )
-		{
-				
-			$encuestas = new EncuestasModel();
-			$encuestas_cabeza= new EncuestasCabezaModel();
-	
-			$nombre_controladores = "Encuestas";
-			$id_rol= $_SESSION['id_rol'];
-			$resultPer = $encuestas->getPermisosVer("controladores.nombre_controladores = '$nombre_controladores' AND permisos_rol.id_rol = '$id_rol' " );
-	
-			if (!empty($resultPer))
-			{
-	
-					
-				
-				$columnas="pre.nombre_preguntas_encuestas_participes,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=1 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=1 and enc.respuestas_encuestas_participes='Bueno') END BUENO_PREGUNTA_1,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=1 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=1 and enc.respuestas_encuestas_participes='Intermedio') END INTERMEDIO_1,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=1 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=1 and enc.respuestas_encuestas_participes='Malo') END MALO_1,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=2 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=2 and enc.respuestas_encuestas_participes='Si') END SI_2,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=2 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=2 and enc.respuestas_encuestas_participes='Algo') END ALGO_2,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=2 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=2 and enc.respuestas_encuestas_participes='Nada') END NADA_2,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=3 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=3 and enc.respuestas_encuestas_participes='Los Colores') END LOS_COLORES_3,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=3 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=3 and enc.respuestas_encuestas_participes='La Información') END LA_INFORMACION_3,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=3 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=3 and enc.respuestas_encuestas_participes='Las Imágenes') END LAS_IMAGENES_3,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=3 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=3 and enc.respuestas_encuestas_participes='Nada') END NADA_3,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=4 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=4 and enc.respuestas_encuestas_participes='1') END R1_4,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=4 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=4 and enc.respuestas_encuestas_participes='2') END R2_4,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=4 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=4 and enc.respuestas_encuestas_participes='3') END R3_4,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=4 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=4 and enc.respuestas_encuestas_participes='4') END R4_4,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=4 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=4 and enc.respuestas_encuestas_participes='5') END R5_4,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=4 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=4 and enc.respuestas_encuestas_participes='6') END R6_4,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=4 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=4 and enc.respuestas_encuestas_participes='7') END R7_4,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=4 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=4 and enc.respuestas_encuestas_participes='8') END R8_4,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=4 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=4 and enc.respuestas_encuestas_participes='9') END R9_4,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=4 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=4 and enc.respuestas_encuestas_participes='10') END R10_4,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=5 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=5 and enc.respuestas_encuestas_participes='Si') END SI_5,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=5 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=5 and enc.respuestas_encuestas_participes='Intermedio') END INTERMEDIO_5,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=5 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=5 and enc.respuestas_encuestas_participes='No') END NO_5,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=6 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=6 and enc.respuestas_encuestas_participes='Si') END SI_6,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=6 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=6 and enc.respuestas_encuestas_participes='No') END NO_6,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=7 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=7 and enc.respuestas_encuestas_participes='Si') END SI_7,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=7 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=7 and enc.respuestas_encuestas_participes='No') END NO_7,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=8 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=8 and enc.respuestas_encuestas_participes='Si') END SI_8,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=8 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=8 and enc.respuestas_encuestas_participes='Intermedio') END INTERMEDIO_8,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=8 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=8 and enc.respuestas_encuestas_participes='No') END NO_8";
-				$tablas="public.preguntas_encuestas_participes pre";
-				$where="1=1";
-				$id="pre.id_preguntas_encuestas_participes";
-				
-				$resultSet=$encuestas->getCondiciones($columnas, $tablas, $where, $id);
-				 
-				$total=0;
-				$resultSet_cabeza=$encuestas_cabeza->getCantidad("*", "encuentas_participes_cabeza", "1=1");
-				$total=(int)$resultSet_cabeza[0]->total;
-				
-				
-				/*
-				require_once 'core/EntidadBaseSQL.php';
-				$db = new EntidadBaseSQL();
-				
-				
-				$columnas_sql="*";
-				$tablas_aql="one.PARTNER";
-				$where_sql="1=1";
-				$id_sql="PARTNER_ID";
-				
-				$resultSet_sql=$db->getCondiciones($columnas_sql, $tablas_aql, $where_sql, $id_sql);
-				
-				print_r($resultSet_sql);
-				die();
-				
-				*/
-				
-					
-				$this->view("ConsultaEncuestas",array(
-						"resultSet"=>$resultSet, "total"=>$total
-	
-				));
-	
-			}
-			else
-			{
-				$this->view("Error",array(
-						"resultado"=>"No tiene Permisos de Acceso a Consulta Encuestas"
-	
-				));
-					
-			}
-	
-	
-		}
-		else
-		{
-			$error = TRUE;
-			$mensaje = "Te sesión a caducado, vuelve a iniciar sesión.";
-	
-			$this->view("Login",array(
-					"resultSet"=>"$mensaje", "error"=>$error
-			));
-	
-	
-			die();
-	
-		}
-	
-	}
-	
-	
-	
-	
-	
-
-
-
-	public function index3(){
-	
-		
-	
-			$encuestas = new EncuestasModel();
-			$encuestas_cabeza= new EncuestasCabezaModel();
-	
-			
-	
-					
-	
-				$columnas="pre.nombre_preguntas_encuestas_participes,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=1 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=1 and enc.respuestas_encuestas_participes='Bueno') END BUENO_PREGUNTA_1,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=1 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=1 and enc.respuestas_encuestas_participes='Intermedio') END INTERMEDIO_1,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=1 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=1 and enc.respuestas_encuestas_participes='Malo') END MALO_1,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=2 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=2 and enc.respuestas_encuestas_participes='Si') END SI_2,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=2 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=2 and enc.respuestas_encuestas_participes='Algo') END ALGO_2,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=2 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=2 and enc.respuestas_encuestas_participes='Nada') END NADA_2,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=3 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=3 and enc.respuestas_encuestas_participes='Los Colores') END LOS_COLORES_3,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=3 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=3 and enc.respuestas_encuestas_participes='La Información') END LA_INFORMACION_3,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=3 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=3 and enc.respuestas_encuestas_participes='Las Imágenes') END LAS_IMAGENES_3,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=3 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=3 and enc.respuestas_encuestas_participes='Nada') END NADA_3,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=4 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=4 and enc.respuestas_encuestas_participes='1') END R1_4,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=4 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=4 and enc.respuestas_encuestas_participes='2') END R2_4,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=4 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=4 and enc.respuestas_encuestas_participes='3') END R3_4,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=4 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=4 and enc.respuestas_encuestas_participes='4') END R4_4,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=4 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=4 and enc.respuestas_encuestas_participes='5') END R5_4,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=4 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=4 and enc.respuestas_encuestas_participes='6') END R6_4,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=4 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=4 and enc.respuestas_encuestas_participes='7') END R7_4,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=4 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=4 and enc.respuestas_encuestas_participes='8') END R8_4,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=4 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=4 and enc.respuestas_encuestas_participes='9') END R9_4,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=4 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=4 and enc.respuestas_encuestas_participes='10') END R10_4,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=5 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=5 and enc.respuestas_encuestas_participes='Si') END SI_5,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=5 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=5 and enc.respuestas_encuestas_participes='Intermedio') END INTERMEDIO_5,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=5 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=5 and enc.respuestas_encuestas_participes='No') END NO_5,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=6 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=6 and enc.respuestas_encuestas_participes='Si') END SI_6,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=6 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=6 and enc.respuestas_encuestas_participes='No') END NO_6,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=7 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=7 and enc.respuestas_encuestas_participes='Si') END SI_7,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=7 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=7 and enc.respuestas_encuestas_participes='No') END NO_7,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=8 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=8 and enc.respuestas_encuestas_participes='Si') END SI_8,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=8 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=8 and enc.respuestas_encuestas_participes='Intermedio') END INTERMEDIO_8,
-						  CASE  WHEN pre.id_preguntas_encuestas_participes=8 THEN  (select count(*) from public.encuentas_participes_detalle enc where enc.id_preguntas_encuestas_participes=pre.id_preguntas_encuestas_participes and enc.id_preguntas_encuestas_participes=8 and enc.respuestas_encuestas_participes='No') END NO_8";
-				$tablas="public.preguntas_encuestas_participes pre";
-				$where="1=1";
-				$id="pre.id_preguntas_encuestas_participes";
-	
-				$resultSet=$encuestas->getCondiciones($columnas, $tablas, $where, $id);
-					
-				$total=0;
-				$resultSet_cabeza=$encuestas_cabeza->getCantidad("*", "encuentas_participes_cabeza", "1=1");
-				$total=(int)$resultSet_cabeza[0]->total;
-	
-					
-				$this->view("GraficaEncuestas",array(
-						"resultSet"=>$resultSet, "total"=>$total
-	
-				));
-	
-			
-	
-	die();
-		
-	
-	}
 	
 	
 	
@@ -319,17 +141,20 @@ class EncuestasController extends ControladorBase{
 	
 		session_start();
 	
-		if (isset(  $_SESSION['nombre_usuarios']) )
-		{
+		
 	
-			$usuarios = new UsuariosModel();
-			$encuestas_detalle = new EncuestasModel();
-			$encuestas_cabeza = new EncuestasCabezaModel();
+			
+			$aspirante = new AspiranteModel();
+			$respuestas = new EncuestasModel();
 				
 			if ( isset($_POST["pregunta_1"]) )
 			{
 				
-				$_id_usuarios = $_SESSION['id_usuarios'];
+			    $_cedula_aspirante    = $_POST["cedula_aspirante"];
+			    $_nombre_aspirante    = $_POST["nombre_aspirante"];
+			    $_puesto_postula    = $_POST["puesto_postula"];
+			    
+				
 				$_pregunta_1    = $_POST["pregunta_1"];
 				$_pregunta_2    = $_POST["pregunta_2"];
 				$_pregunta_3    = $_POST["pregunta_3"];
@@ -338,15 +163,10 @@ class EncuestasController extends ControladorBase{
 				$_pregunta_6    = $_POST["pregunta_6"];
 				$_pregunta_7    = $_POST["pregunta_7"];
 				$_pregunta_8    = $_POST["pregunta_8"];
+				$_pregunta_9    = $_POST["pregunta_9"];
+				$_pregunta_10    = $_POST["pregunta_10"];
 				
-				$_respuesta_pregunta_1    = $_POST["respuesta_pregunta_1"];
-				$_respuesta_pregunta_2    = $_POST["respuesta_pregunta_2"];
-				$_respuesta_pregunta_3    = $_POST["respuesta_pregunta_3"];
-				$_respuesta_pregunta_4    = $_POST["respuesta_pregunta_4"];
-				$_respuesta_pregunta_5    = $_POST["respuesta_pregunta_5"];
-				$_respuesta_pregunta_6    = $_POST["respuesta_pregunta_6"];
-				$_respuesta_pregunta_7    = $_POST["respuesta_pregunta_7"];
-				$_respuesta_pregunta_8    = $_POST["respuesta_pregunta_8"];
+			
 				
 				
 				$_comentario_respuesta_1    = $_POST["comentario_respuesta_1"];
@@ -357,6 +177,8 @@ class EncuestasController extends ControladorBase{
 				$_comentario_respuesta_6    = $_POST["comentario_respuesta_6"];
 				$_comentario_respuesta_7    = $_POST["comentario_respuesta_7"];
 				$_comentario_respuesta_8    = $_POST["comentario_respuesta_8"];
+				$_comentario_respuesta_9    = $_POST["comentario_respuesta_9"];
+				$_comentario_respuesta_10    = $_POST["comentario_respuesta_10"];
 				
 				
 				
@@ -368,23 +190,23 @@ class EncuestasController extends ControladorBase{
 				try {
 					
 					
-					$funcion = "public.ins_encuentas_participes_cabeza";
-					$parametros = "'$_id_usuarios'";
-					$encuestas_cabeza->setFuncion($funcion);
-					$encuestas_cabeza->setParametros($parametros);
-					$resultado=$encuestas_cabeza->Insert();
+					$funcion = "public.ins_aspirante";
+					$parametros = "'$_cedula_aspirante','$_nombre_aspirante','$_puesto_postula'";
+					$aspirante->setFuncion($funcion);
+					$aspirante->setParametros($parametros);
+					$resultado=$aspirante->Insert();
 					
 					
 					
-					$resultEncuestasCabeza= $encuestas_cabeza->getBy("id_usuarios='$_id_usuarios' order by id_encuentas_participes_cabeza DESC");
-					$id_encuentas_participes_cabeza=$resultEncuestasCabeza[0]->id_encuentas_participes_cabeza;
+					$resultEncuestasCabeza= $aspirante->getBy("cedula_aspirante='$_cedula_aspirante' AND puesto_postula='$_puesto_postula'  order by id_aspirante DESC");
+					$id_aspirante=$resultEncuestasCabeza[0]->id_aspirante;
 					
 					
 					
 					
 				} catch (Exception $e) {
 						
-					echo "Error al Insertar Encuestas Cabeza";
+					echo "Error al Insertar Aspirante";
     				die();
 						
 				}
@@ -392,26 +214,29 @@ class EncuestasController extends ControladorBase{
 	
 				
 				
-				if ($id_encuentas_participes_cabeza > 0){
+				if ($id_aspirante > 0){
 					
 					try {
-						$funcion = "public.ins_encuentas_participes_detalle";
-						$parametros = "'$_pregunta_1', '$_id_usuarios', '$_respuesta_pregunta_1', '$_comentario_respuesta_1', '$id_encuentas_participes_cabeza'";
-						$encuestas_detalle->setFuncion($funcion);
-						$encuestas_detalle->setParametros($parametros);
-						$resultado=$encuestas_detalle->Insert();
+						$funcion = "public.ins_respuestas";
+						$parametros = "'$_pregunta_1', '$_comentario_respuesta_1', '$id_aspirante'";
+						$respuestas->setFuncion($funcion);
+						$respuestas->setParametros($parametros);
+						$resultado=$respuestas->Insert();
 					} catch (Exception $e) {
 						echo "Error al Insertar Encuestas Detalle 1";
 						die();
 						
 					}
 					
+					
+					
+					
 					try {
-						$funcion = "public.ins_encuentas_participes_detalle";
-						$parametros = "'$_pregunta_2', '$_id_usuarios', '$_respuesta_pregunta_2', '$_comentario_respuesta_2', '$id_encuentas_participes_cabeza'";
-						$encuestas_detalle->setFuncion($funcion);
-						$encuestas_detalle->setParametros($parametros);
-						$resultado=$encuestas_detalle->Insert();
+						$funcion = "public.ins_respuestas";
+						$parametros = "'$_pregunta_2', '$_comentario_respuesta_2', '$id_aspirante'";
+						$respuestas->setFuncion($funcion);
+						$respuestas->setParametros($parametros);
+						$resultado=$respuestas->Insert();
 					} catch (Exception $e) {
 						echo "Error al Insertar Encuestas Detalle 2";
 						die();
@@ -420,11 +245,11 @@ class EncuestasController extends ControladorBase{
 					
 					
 					try {
-						$funcion = "public.ins_encuentas_participes_detalle";
-						$parametros = "'$_pregunta_3', '$_id_usuarios', '$_respuesta_pregunta_3', '$_comentario_respuesta_3', '$id_encuentas_participes_cabeza'";
-						$encuestas_detalle->setFuncion($funcion);
-						$encuestas_detalle->setParametros($parametros);
-						$resultado=$encuestas_detalle->Insert();
+						$funcion = "public.ins_respuestas";
+						$parametros = "'$_pregunta_3', '$_comentario_respuesta_3', '$id_aspirante'";
+						$respuestas->setFuncion($funcion);
+						$respuestas->setParametros($parametros);
+						$resultado=$respuestas->Insert();
 					} catch (Exception $e) {
 						echo "Error al Insertar Encuestas Detalle 3";
 						die();
@@ -432,11 +257,11 @@ class EncuestasController extends ControladorBase{
 					}
 						
 					try {
-						$funcion = "public.ins_encuentas_participes_detalle";
-						$parametros = "'$_pregunta_4', '$_id_usuarios', '$_respuesta_pregunta_4', '$_comentario_respuesta_4', '$id_encuentas_participes_cabeza'";
-						$encuestas_detalle->setFuncion($funcion);
-						$encuestas_detalle->setParametros($parametros);
-						$resultado=$encuestas_detalle->Insert();
+						$funcion = "public.ins_respuestas";
+						$parametros = "'$_pregunta_4', '$_comentario_respuesta_4', '$id_aspirante'";
+						$respuestas->setFuncion($funcion);
+						$respuestas->setParametros($parametros);
+						$resultado=$respuestas->Insert();
 					} catch (Exception $e) {
 						echo "Error al Insertar Encuestas Detalle 4";
 						die();
@@ -445,11 +270,11 @@ class EncuestasController extends ControladorBase{
 					
 					
 					try {
-						$funcion = "public.ins_encuentas_participes_detalle";
-						$parametros = "'$_pregunta_5', '$_id_usuarios', '$_respuesta_pregunta_5', '$_comentario_respuesta_5', '$id_encuentas_participes_cabeza'";
-						$encuestas_detalle->setFuncion($funcion);
-						$encuestas_detalle->setParametros($parametros);
-						$resultado=$encuestas_detalle->Insert();
+						$funcion = "public.ins_respuestas";
+						$parametros = "'$_pregunta_5', '$_comentario_respuesta_5', '$id_aspirante'";
+						$respuestas->setFuncion($funcion);
+						$respuestas->setParametros($parametros);
+						$resultado=$respuestas->Insert();
 					} catch (Exception $e) {
 						echo "Error al Insertar Encuestas Detalle 5";
 						die();
@@ -457,11 +282,11 @@ class EncuestasController extends ControladorBase{
 					}
 					
 					try {
-						$funcion = "public.ins_encuentas_participes_detalle";
-						$parametros = "'$_pregunta_6', '$_id_usuarios', '$_respuesta_pregunta_6', '$_comentario_respuesta_6', '$id_encuentas_participes_cabeza'";
-						$encuestas_detalle->setFuncion($funcion);
-						$encuestas_detalle->setParametros($parametros);
-						$resultado=$encuestas_detalle->Insert();
+						$funcion = "public.ins_respuestas";
+						$parametros = "'$_pregunta_6', '$_comentario_respuesta_6', '$id_aspirante'";
+						$respuestas->setFuncion($funcion);
+						$respuestas->setParametros($parametros);
+						$resultado=$respuestas->Insert();
 					} catch (Exception $e) {
 						echo "Error al Insertar Encuestas Detalle 6";
 						die();
@@ -470,11 +295,11 @@ class EncuestasController extends ControladorBase{
 					
 					
 					try {
-						$funcion = "public.ins_encuentas_participes_detalle";
-						$parametros = "'$_pregunta_7', '$_id_usuarios', '$_respuesta_pregunta_7', '$_comentario_respuesta_7', '$id_encuentas_participes_cabeza'";
-						$encuestas_detalle->setFuncion($funcion);
-						$encuestas_detalle->setParametros($parametros);
-						$resultado=$encuestas_detalle->Insert();
+						$funcion = "public.ins_respuestas";
+						$parametros = "'$_pregunta_7', '$_comentario_respuesta_7', '$id_aspirante'";
+						$respuestas->setFuncion($funcion);
+						$respuestas->setParametros($parametros);
+						$resultado=$respuestas->Insert();
 					} catch (Exception $e) {
 						echo "Error al Insertar Encuestas Detalle 7";
 						die();
@@ -482,15 +307,39 @@ class EncuestasController extends ControladorBase{
 					}
 						
 					try {
-						$funcion = "public.ins_encuentas_participes_detalle";
-						$parametros = "'$_pregunta_8', '$_id_usuarios', '$_respuesta_pregunta_8', '$_comentario_respuesta_8', '$id_encuentas_participes_cabeza'";
-						$encuestas_detalle->setFuncion($funcion);
-						$encuestas_detalle->setParametros($parametros);
-						$resultado=$encuestas_detalle->Insert();
+						$funcion = "public.ins_respuestas";
+						$parametros = "'$_pregunta_8', '$_comentario_respuesta_8', '$id_aspirante'";
+						$respuestas->setFuncion($funcion);
+						$respuestas->setParametros($parametros);
+						$resultado=$respuestas->Insert();
 					} catch (Exception $e) {
 						echo "Error al Insertar Encuestas Detalle 8";
 						die();
 							
+					}
+					
+					try {
+					    $funcion = "public.ins_respuestas";
+					    $parametros = "'$_pregunta_9', '$_comentario_respuesta_9', '$id_aspirante'";
+					    $respuestas->setFuncion($funcion);
+					    $respuestas->setParametros($parametros);
+					    $resultado=$respuestas->Insert();
+					} catch (Exception $e) {
+					    echo "Error al Insertar Encuestas Detalle 9";
+					    die();
+					    
+					}
+					
+					try {
+					    $funcion = "public.ins_respuestas";
+					    $parametros = "'$_pregunta_10', '$_comentario_respuesta_10', '$id_aspirante'";
+					    $respuestas->setFuncion($funcion);
+					    $respuestas->setParametros($parametros);
+					    $resultado=$respuestas->Insert();
+					} catch (Exception $e) {
+					    echo "Error al Insertar Encuestas Detalle 10";
+					    die();
+					    
 					}
 					
 					
@@ -503,31 +352,19 @@ class EncuestasController extends ControladorBase{
 	
 					
 					
-				$this->redirect("Usuarios", "Bienvenida");
+				$this->redirect("Encuestas", "index");
 	
 	
 			}
 			else
 			{
 	
-				$this->redirect("Usuarios", "Bienvenida");
+			    $this->redirect("Encuestas", "index");
 			}
 	
 	
-		}
-		else
-		{
-	
-			$error = TRUE;
-			$mensaje = "Te sesión a caducado, vuelve a iniciar sesión.";
-			$this->view("Login",array(
-					"resultSet"=>"$mensaje", "error"=>$error
-			));
-	
-	
-			die();
-	
-		}
+		
+		
 	
 	}
 	
