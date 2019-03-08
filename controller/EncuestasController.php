@@ -1044,7 +1044,7 @@ class EncuestasController extends ControladorBase{
 	    session_start();
 	    
 	    /*start test*/
-	    $_SESSION['controladores'] = array(); 
+	    //$_SESSION['controladores'] = array(); 
 	    /*end test*/
 	    
 	    $columnas ="";
@@ -1124,7 +1124,6 @@ class EncuestasController extends ControladorBase{
 	            $html.='<th style="text-align: left;  font-size: 12px;"></th>';
 	            $html.='<th style="text-align: left;  font-size: 12px;">Cedula</th>';
 	            $html.='<th style="text-align: left;  font-size: 12px;">Nombre</th>';
-	            $html.='<th style="text-align: left;  font-size: 12px;"> </th>';
 	            $html.='<th style="text-align: left;  font-size: 12px;">Puesto Postula</th>';
 	            $html.='<th style="text-align: left;  font-size: 12px;">Fecha Encuesta</th>';
 	            $html.='<th style="text-align: left;  font-size: 12px;">Ver Encuesta</th>';
@@ -1142,7 +1141,6 @@ class EncuestasController extends ControladorBase{
 	                $html.='<td style="font-size: 11px;">'.$i.'</td>';
 	                $html.='<td style="font-size: 11px;">'.$res->cedula_aspirante.'</td>';
 	                $html.='<td style="font-size: 11px;">'.$res->nombre_aspirante.'</td>';
-	                $html.='<td style="font-size: 11px;">'.' '.'</td>';
 	                $html.='<td style="font-size: 11px;">'.$res->puesto_postula.'</td>';
 	                $html.='<td style="font-size: 11px;">'.date("d/m/Y", strtotime($res->creado)).'</td>';
 	                $html.='<td style="font-size: 11px;"><a href="index.php?controller=Encuestas&action=imprime_encuesta&id_aspirante='.$res->id_aspirante.'" target="_blank" class="btn btn-warning" style="font-size:85%;"><i class="glyphicon glyphicon-eye-open"></i></a></td>';
