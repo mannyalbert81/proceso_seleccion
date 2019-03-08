@@ -1099,7 +1099,7 @@ class EncuestasController extends ControladorBase{
 	        $page = (isset($_REQUEST['page']) && !empty($_REQUEST['page']))?$_REQUEST['page']:1;
 	        
 	        $per_page = 50; //la cantidad de registros que desea mostrar
-	        $adjacents  = 9; //brecha entre páginas después de varios adyacentes
+	        $adjacents  = 9; //brecha entre pï¿½ginas despuï¿½s de varios adyacentes
 	        $offset = ($page - 1) * $per_page;
 	        
 	        $limit = " LIMIT   '$per_page' OFFSET '$offset'";
@@ -1212,7 +1212,7 @@ class EncuestasController extends ControladorBase{
 	    
 	   
 	    $fechaactual = getdate();
-	    $dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
+	    $dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sï¿½bado");
 	    $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
 	    $fechaactual=$dias[date('w')]." ".date('d')." de ".$meses[date('n')-1]. " del ".date('Y') ;
 	    
@@ -1241,12 +1241,11 @@ class EncuestasController extends ControladorBase{
                 
          
                 $html.='<p style="text-align: right;">'.$logo.'<hr style="height: 2px; background-color: black;"></p>';
-                $html.='<p style="text-align: right; font-size: 13px;"><b>Impreso:</b> '.$fechaactual.'</p>';
-                $html.='<p style="text-align: center; font-size: 16px;"><b>PROCESO DE SELECCIÓN</b></p>';
+               
+                $html.='<p style="text-align: center; font-size: 16px;"><b>EVALUACIÃ“N PROCESO DE SELECCIÃ“N</b></p>';
                 
-                $html.= '<p style="margin-top:15px; text-align: justify; font-size: 13px;"><b>NOMBRES:</b> '.$_nombre_aspirante.'  <b style="margin-left: 20%; font-size: 13px;">IDENTIFICACIÓN:</b> '.$_cedula_aspirante.'</p>';
-                $html.= '<p style="margin-top:15px; text-align: justify; font-size: 13px;"><b>ENCUESTA REALIZADA EL:</b> '.$_fecha_encuesta.'</p>';
-                $html.= '<p style="margin-top:15px; text-align: justify; font-size: 13px;"><b>PUESTO AL QUE POSTULA:</b> '.$_puesto_postula.'</p>';
+                $html.= '<p style="margin-top:15px; text-align: justify; font-size: 12px;"><b>NOMBRES:</b> '.$_nombre_aspirante.'  <b style="margin-left: 30%; font-size: 12px;">IDENTIFICACIÃ“N:</b> '.$_cedula_aspirante.'</p>';
+                $html.= '<p style="margin-top:15px; text-align: justify; font-size: 12px;"><b>PUESTO AL QUE POSTULA:</b> '.$_puesto_postula.'  <b style="margin-left: 20%; font-size: 12px;">REALIZADA EL:</b> '.date("d/m/Y", strtotime($_fecha_encuesta)).'</p>';
                 
                 	                        
                 $pregunta="";
@@ -1259,11 +1258,11 @@ class EncuestasController extends ControladorBase{
                     $pregunta = $res->nombre_preguntas;
                     $respuesta = $res->respuesta;
                     
-                    $html.= "<b>$pregunta</b>";
+                    $html.= "<b style='font-size: 13px; margin-top:20px;'>$pregunta</b>";
                     
                     $html.= "<table style='width: 100%; margin-top:10px;'>";
                     $html.= '<tr>';
-                    $html.='<td  colspan="3" style="text-align: justify;  font-size: 15px;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '.$respuesta.'</td><br> <br>';
+                    $html.='<td  colspan="3" style="text-align: justify;  font-size: 12px;">'.$respuesta.'</td><br>';
                     $html.='</tr>';
                     $html.='</table>';
                              

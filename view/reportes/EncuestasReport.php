@@ -17,8 +17,8 @@ $dompdf->set_paper("A4");
 $pdf = $dompdf->render();
 $canvas = $dompdf->get_canvas();
 $font = Font_Metrics::get_font("helvetica", "bold");
-$canvas->page_text(536, 18, "Pág. {PAGE_NUM}/{PAGE_COUNT}", $font, 6, array(0,0,0)); //header
-$canvas->page_text(260, 812, "Copyright © 2018 - www.capremci.com.ec", $font, 6, array(0,0,0)); //footer
+//$canvas->page_text(536, 18, "Pág. {PAGE_NUM}/{PAGE_COUNT}", $font, 6, array(0,0,0)); //header
+$canvas->page_text(260, 812, "", $font, 6, array(0,0,0)); //footer
 header("Content-type: application/pdf");
 echo $dompdf->output();
 
